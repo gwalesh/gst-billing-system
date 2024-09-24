@@ -36,6 +36,11 @@ class GstBill extends Model
     {
         return $this->belongsTo(Party::class);
     }
+
+    public function gstBillItems()
+    {
+        return $this->hasMany(GstBillItem::class);
+    }
     
 }
 

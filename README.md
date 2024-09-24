@@ -64,3 +64,9 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+Cloud hosting 100 GB 1 Year X 3
+
+Feature Addition to Website (Whatsapp, Analytics, Hotjar, Sitemap Generator, Auto Slug)
+
+100 Professional Emails 5 GB Each X 3

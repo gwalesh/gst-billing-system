@@ -43,11 +43,22 @@
                                     <input type="date" name="invoice_date" class="form-control border-bottom" id="validationCustom02">
                                 </div>
                             </div>
-
+                            @php
+                                $today = \Carbon\Carbon::today()->format('dmy');
+                                // Ensure $last->invoice_no exists and is long enough
+                                $last = \App\Models\GstBill::orderBy('created_at','desc')->first();
+                                if ($last && strlen($last->invoice_no) >= 7) {
+                                    $numberFrom7th = substr($last->invoice_no, 6); // Start from the 7th character (index 6)
+                                    $invNumber = $numberFrom7th + 01;
+                                } else {
+                                    dd("Invoice number is too short or does not exist.");
+                                }
+                                $invoiceNumber = $today . $invNumber;
+                            @endphp
                             <div class="col-md-4">
                                 <div class="form-group mb-3">
                                     <label>Invoice Number</label>
-                                    <input type="text" name="invoice_no" class="form-control border-bottom" id="validationCustom02" placeholder="Enter Invoice number">
+                                    <input type="text" name="invoice_no" class="form-control border-bottom" id="validationCustom02" value="{{ $invoiceNumber ?? '' }}" placeholder="Enter Invoice number">
                                 </div>
                             </div>
                         </div>
@@ -59,24 +70,29 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-8 border p-1 text-center">
-                                <b>DESCRIPTIONS</b>
-                            </div>
-                            <div class="col-md-4 border p-1 text-center">
-                                <b>TOTAL AMOUNT</b>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-8 border p-2">
-                                <input class="form-control" name="item_description" />
-                            </div>
+                        <div class="row mb-3" id="itemDetails">
                             <div class="col-md-4 border p-2">
-                                <input class="form-control" type="text" name="total_amount" id="totalAmountInput" oninput="calculateNetAmount()">
+                                <input class="form-control" name="item_description[]" placeholder="Item Description" required />
+                            </div>
+                            <div class="col-md-2 border p-2">
+                                <input class="form-control" type="number" step="0.01" name="igst_rate[]" placeholder="IGST (%)" required oninput="calculateNetAmount()">
+                            </div>
+                            <div class="col-md-2 border p-2">
+                                <input class="form-control" type="number" step="0.01" name="discount_rate[]" placeholder="Discount (%)" oninput="calculateNetAmount()">
+                            </div>
+                            <div class="col-md-2 border p-2">
+                                <input class="form-control" type="number" step="0.01" name="price[]" placeholder="Price" required oninput="calculateNetAmount()">
+                            </div>
+                            <div class="col-md-2 border p-2">
+                                <button type="button" class="btn btn-danger remove-row" id="removeBtn">Remove</button>
                             </div>
                         </div>
-
+                        <div class="row mt-2">
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-success add-item" id="addItemButton">Add Item</button>
+                            </div>
+                        </div>
+                        <hr class="my-5">
                         <div class="row mt-0">
                             <div class="col-md-3">
                                 <label>CGST (%)</label>

@@ -25,9 +25,22 @@ class Party extends Model
         "account_no",
         "bank_name",
         "ifsc_code",
-        "branch_address"
+        "branch_address",
+        "gstin",
+        "pincode"
     );
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($party) {
+            if (is_null($party->account_holder_name)) {
+                $party->account_holder_name = $party->full_name;
+            }
+        });
+    }
+    
     public function gstBills()
     {
         return $this->hasMany(GstBill::class);

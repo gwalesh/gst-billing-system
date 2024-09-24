@@ -26,11 +26,11 @@
                 <table class="table table-hover m-0 table-centered dt-responsive nowrap w-100 table-bordered" id="tickets-table">
                     <thead>
                         <tr>
-                            <th>S.No.</th>
                             <th>Invoice No</th>
                             <th>Client's Info</th>
                             <th>Billing Info</th>
                             <th>Invoice Date</th>
+                            <th>Items</th>
                             <th class="hidden-sm">Action</th>
                         </tr>
                     </thead>
@@ -39,7 +39,6 @@
                         @if(count($bills))
                         @foreach($bills as $index => $bill)
                         <tr>
-                            <td><b>{{ $index+1 }}</b></td>
                             <td>#{{ $bill->invoice_no }}</td>
                             <td>
                                 <ul class="list-unstyled">
@@ -54,6 +53,13 @@
                                     <li><b>TAX:</b> <span>₹{{ $bill->tax_amount }}</span></li>
                                     <li><b>Net Amount:</b> <span>₹{{ $bill->net_amount }}</span></li>
                                 </ul>
+                            </td>
+                            <td>
+                                @if($bill->gstBillItems->count())
+                                    @foreach($bill->gstBillItems as $key => $item)
+                                        <p>{{ $item->description ?? '' }}</p>
+                                    @endforeach 
+                                @endif 
                             </td>
 
                             <td>{{ date("d-m-Y", strtotime($bill->invoice_date)) }}</td>

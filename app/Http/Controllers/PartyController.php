@@ -36,7 +36,9 @@ class PartyController extends Controller
             'bank_name',
             'ifsc_code',
             'branch_address',
-            'created_at'
+            'created_at',
+            'gstin',
+            'pincode'
         )->get();
 
         return view("party.index", compact('parties'));
@@ -57,12 +59,14 @@ class PartyController extends Controller
             'full_name' => 'required|string|min:2|max:20',
             'phone_no' => 'required',
             'address' => 'required|max:255',
+            'gstin'     =>  'required',
+            'pincode'   =>  'required',
 
-            'account_holder_name' => 'required|string|min:2|max:20',
-            'account_no' => 'required',
-            'bank_name' => 'required|max:255',
-            'ifsc_code' => 'required|max:50',
-            'branch_address' => 'required|max:255',
+            'account_holder_name' => 'nullable|string|min:2|max:20',
+            'account_no' => 'nullable',
+            'bank_name' => 'nullable|max:255',
+            'ifsc_code' => 'nullable|max:50',
+            'branch_address' => 'nullable|max:255',
         ]);
 
         $param = $request->all();
@@ -93,11 +97,13 @@ class PartyController extends Controller
             'full_name' => 'required|string|min:2|max:20',
             'phone_no' => 'required',
             'address' => 'required|max:255',
-            'account_holder_name' => 'required|string|min:2|max:20',
-            'account_no' => 'required',
-            'bank_name' => 'required|max:255',
-            'ifsc_code' => 'required|max:50',
-            'branch_address' => 'required|max:255',
+            'gstin'     =>  'required',
+            'pincode'   =>  'required',
+            'account_holder_name' => 'nullable|string|min:2|max:20',
+            'account_no' => 'nullable',
+            'bank_name' => 'nullable|max:255',
+            'ifsc_code' => 'nullable|max:50',
+            'branch_address' => 'nullable|max:255',
         ]);
 
         // Update the record

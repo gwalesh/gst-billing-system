@@ -28,7 +28,7 @@
                             <th>Client Type</th>
                             <th>Client Info</th>
                             <th>Bank Details</th>
-                            <th>Created At</th>
+                            <th>GSTIN</th>
                             <th class="hidden-sm">Action</th>
                         </tr>
                     </thead>
@@ -58,7 +58,7 @@
                                 </ul>
                             </td>
 
-                            <td>{{ date("d-m-Y", strtotime($party->created_at)) }}</td>
+                            <td>{{ $party->gstin ?? '' }}</td>
 
                             <td>
                                 <div class="btn-group dropdown">

@@ -1,47 +1,70 @@
+document.addEventListener("DOMContentLoaded", function () {
+  const addItemButton = document.getElementById('addItemButton');
+  const itemsContainer = document.getElementById('itemDetails'); // The container that holds the rows
+
+  // Add new row on button click
+  addItemButton.addEventListener('click', function () {
+    const newItemRow = `
+            <div class="col-md-4 border p-2">
+                <input class="form-control" name="item_description[]" placeholder="Item Description" />
+            </div>
+            <div class="col-md-2 border p-2">
+                <input class="form-control" type="text" name="item_gst[]" placeholder="GST (%)" oninput="calculateNetAmount()">
+            </div>
+            <div class="col-md-2 border p-2">
+                <input class="form-control" type="text" name="item_discount[]" placeholder="Discount (%)" oninput="calculateNetAmount()">
+            </div>
+            <div class="col-md-2 border p-2">
+                <input class="form-control" type="text" name="total_amount[]" placeholder="Total Amount" oninput="calculateNetAmount()">
+            </div>
+            <div class="col-md-2 border p-2">
+                <button type="button" class="btn btn-danger remove-row">Remove</button>
+            </div>
+            `;
+    itemsContainer.insertAdjacentHTML('beforeend', newItemRow);
+  });
+
+  // Remove row functionality
+  itemsContainer.addEventListener('click', function (event) {
+    if (event.target.classList.contains('remove-row')) {
+      event.target.closest('.row').remove();
+      calculateNetAmount(); // Recalculate the total after removing
+    }
+  });
+});
+
 function calculateNetAmount() {
-  var totalAmount = parseFloat(
-    document.getElementById("totalAmountInput").value
-  );
+  let totalAmount = 0;
+  let totalTax = 0;
 
-  if (isNaN(totalAmount)) {
-    totalAmount = 0;
-  }
-  var cgst = parseFloat(document.getElementById("cgst").value) || 0;
-  var sgst = parseFloat(document.getElementById("sgst").value) || 0;
-  var igst = parseFloat(document.getElementById("igst").value) || 0;
+  document.querySelectorAll('#itemDetails .row').forEach((row, index) => {
+      let price = parseFloat(row.querySelector('input[name="price[]"]').value) || 0;
+      let discountRate = parseFloat(row.querySelector('input[name="discount_rate[]"]').value) || 0;
+      let igstRate = parseFloat(row.querySelector('input[name="igst_rate[]"]').value) || 0;
 
-  // CGST SGST and IGST teeno value ka code
+      let discountAmount = (discountRate / 100) * price;
+      let amountAfterDiscount = price - discountAmount;
 
-  var cgstAmt = (cgst / 100) * totalAmount;
-  var sgstAmt = (sgst / 100) * totalAmount;
-  var igstAmt = (igst / 100) * totalAmount;
+      let taxAmount = (igstRate / 100) * amountAfterDiscount;
+      let netAmount = amountAfterDiscount + taxAmount;
 
-  var totalTax = ((cgst + sgst + igst) / 100) * totalAmount;
-  var netAmount = totalTax + totalAmount;
+      totalAmount += netAmount;
+      totalTax += taxAmount;
+  });
 
-  // Adding calculated amounts on fields and display
-  document.getElementById("totalAmountDisplay").innerText =
-    totalAmount.toFixed(2);
-  document.getElementById("taxDisplay").innerText = totalTax.toFixed(2);
-  document.getElementById("taxAmount").value = totalTax.toFixed(2);
+  // Update the totals in the form
+  document.getElementById('totalAmountDisplay').innerText = totalAmount.toFixed(2);
+  document.getElementById('taxDisplay').innerText = totalTax.toFixed(2);
+  document.getElementById('netAmountDisplay').innerText = totalAmount.toFixed(2);
 
-  document.getElementById("netAmountDisplay").innerText = netAmount.toFixed(2);
-  document.getElementById("netAmount").value = netAmount.toFixed(2);
-
-  document.getElementById("cgstDisplay").innerText = cgstAmt.toFixed(2);
-  document.getElementById("cgstAmount").value = cgstAmt.toFixed(2);
-
-  document.getElementById("sgstDisplay").innerText = sgstAmt.toFixed(2);
-  document.getElementById("sgstAmount").value = sgstAmt.toFixed(2);
-
-  document.getElementById("igstDisplay").innerText = igstAmt.toFixed(2);
-  document.getElementById("igstAmount").value = igstAmt.toFixed(2);
+  document.getElementById('netAmount').value = totalAmount;
+  document.getElementById('taxAmount').value = totalTax;
 }
 
-function calculateTotalAmount() {
-  var oneAmount = parseFloat(document.getElementById("totalInput").value);
 
-  console.log(oneAmount);
+// This function will be triggered by item row calculations
+function calculateTotalAmount() {
+  let oneAmount = parseFloat(document.getElementById("totalInput").value);
   if (isNaN(oneAmount)) {
     oneAmount = 0;
   }

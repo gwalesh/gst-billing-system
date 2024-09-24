@@ -53,6 +53,20 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="validationCustom01">GSTIN</label>
+                                    <input type="text" value="{{ old('gstin') }}" name="gstin" class="form-control border-bottom " id="validationCustom01" placeholder="Enter client's GSTIN">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="validationCustom01">Pincode</label>
+                                    <input type="text" value="{{ old('pincode') }}" name="pincode" class="form-control border-bottom " id="validationCustom01" placeholder="Enter client's Pincode">
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="row">
                             <div class="col-md-12">

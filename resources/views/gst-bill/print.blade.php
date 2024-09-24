@@ -19,22 +19,24 @@
         <div class="col-12">
             <div class="card-box">
                 <!-- Company Info -->
-                <div class="clearfix">
-                    <div class="text-center">
-                        <h1>Dex Enterprises</h1>
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="{{ asset("assets/images/web-wolf-logo.png") }}" alt="web-wolf-logo" class="img-fluid" style="height: 10rem;">
                     </div>
-                    <div class="text-center">
-                        <span>Varanasi-221010 (U.P.) India</span><br>
-                        <span><b>Email:</b> dexEnt@thedex.com | <b>Web:</b> www.thedex.com | <b>Mob:</b>
-                            +919795122966</span>
-                    </div>
-                    <div class="row pb-1">
-                        <div class="col-6 text-right">
-                            <span class="text-right"><b>PAN NO:</b> GAETE2437D</span>
-                        </div>
-                        <div class="col-6">
-                            <span>
-                                <b>GSTIN NO:</b> CHEC2342DEX007</span>
+                    <div class="col-md-8">
+                        <div class="clearfix">
+                            <div class="text-right">
+                                <h1>Web Wolf</h1>
+                            </div>
+                            <div class="text-right">
+                                <span>Ground Floor, house No 221/25, NIT Jawahar Colony, Faridabad - Haryana - 121005</span><br>
+                                <span><b>Email:</b> <a href="mailto:info@webwolf.in">info@webwolf.in</a> | <b>Web:</b> <a href="www.webwolf.in">www.webwolf.in</a> | <b>Mob:</b>
+                                    <a href="tel:+918010589236">+91-8010589236</a></span>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-right"><b>PAN NO:</b> KGSPS5353C</span>
+                                <span><b>GSTIN:</b> 06KGSPS5353C2ZU</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -123,9 +125,22 @@
 
                 <div class="row border">
                     <div class="col-sm-6 col-lg-9 p-0">
-                        <div class="clearfix pt-2 pb-2 mt-1 mb-1 ml-1 text-center" style="background-color: rgba(218, 218, 218, 0.37); border-radius: 5px;">
+                        <div class="clearfix pt-2 pb-2 mt-1 mb-1 ml-1 text-center" style="background-color: rgba(218, 218, 218, 0.37); border-radius: 5px; padding: 2rem;">
                             <h5><b>Bank Details</b></h5>
-                            <p><b>CANARA BANK - ACCOUNT NO: 180011220011012 - IFSC: CNB320048</b></p>
+                            <div class="row">
+                                <div class="col-md-6" style="border: 1px solid #ABABAB;">
+                                    <p>Account Number: </p><p>45590200000292</p>
+                                </div>
+                                <div class="col-md-6" style="border: 1px solid #ABABAB;">
+                                    <p>Account Holder's Name: </p><p>Web Wolf</p>
+                                </div>
+                                <div class="col-md-6" style="border: 1px solid #ABABAB;">
+                                    <p>Bank Name: </p><p>Bank Of Baroda</p>
+                                </div>
+                                <div class="col-md-6" style="border: 1px solid #ABABAB;">
+                                    <p>IFSC Code: </p><p>BARB0JAWFAR</p>
+                                </div>
+                            </div>
                         </div>
                     </div> <!-- end col -->
                     <div class="col-sm-6 col-lg-3 mt-1">
